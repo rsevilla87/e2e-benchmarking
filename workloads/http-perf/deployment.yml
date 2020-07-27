@@ -1,0 +1,25 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: http-server-${ID}
+  namespace: ${NS}
+spec:
+  selector:
+    matchLabels:
+      run: http-server-${ID}
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: http-server-${ID}
+    spec:
+      nodeSelector:
+        ${NODE_SELECTOR}
+      containers:
+      - name: nginx-http
+        ports:
+          - containerPort: 8080
+            protocol: TCP
+        image: ${HTTP_SERVER_IMAGE}
+        imagePullPolicy: IfNotPresent
