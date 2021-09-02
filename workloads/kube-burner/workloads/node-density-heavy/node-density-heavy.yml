@@ -31,7 +31,7 @@ jobs:
         inputVars:
           nodeSelector: "{{.POD_NODE_SELECTOR}}"
 
-      - objectTemplate: https://raw.githubusercontent.com/cloud-bulldozer/e2e-benchmarking/master/workloads/kube-burner/workloads/node-density-heavy/templates/app-deployment.yml
+      - objectTemplate: https://raw.githubusercontent.com/rsevilla87/e2e-benchmarking/master/workloads/kube-burner/workloads/node-density-heavy/templates/app-deployment.yml
         replicas: 1
         inputVars:
           readinessPeriod: 10
