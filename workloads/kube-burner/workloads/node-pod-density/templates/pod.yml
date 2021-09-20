@@ -15,3 +15,7 @@ spec:
     imagePullPolicy: IfNotPresent
     securityContext:
       privileged: false
+    resources:
+      requests:
+        memory: "1Mi"
+        cpu: "1m"
