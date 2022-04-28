@@ -166,12 +166,6 @@ snappy_backup() {
  store_on_elastic
 }
 
-remove_update_taint() {
-  # This is only here until BZ https://bugzilla.redhat.com/show_bug.cgi?id=2035005 gets resolved
-  oc adm taint nodes UpdateInProgress:PreferNoSchedule- --all || true
-}
-
-
 label_node_with_label() {
   colon_param=$(echo $1 | tr "=" ":" | sed 's/:/: /g')
   export POD_NODE_SELECTOR="{$colon_param}"
