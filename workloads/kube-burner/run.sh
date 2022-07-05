@@ -122,6 +122,7 @@ if [[ ${PPROF_COLLECTION} == "true" ]] ; then
   delete_pprof_secrets
   delete_oldpprof_folder
   get_pprof_secrets
+  collect_pprof &
 fi
 
 if [[ ${WORKLOAD} == "concurrent-builds" ]]; then
