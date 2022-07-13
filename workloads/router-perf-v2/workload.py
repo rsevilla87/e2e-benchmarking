@@ -43,6 +43,13 @@ def index_result(payload, retry_count=3):
             print("Retrying again to index...")
             retry_count -= 1
 
+def run_mb_ramp_up(mb_config, runtime):
+    cmd = f"mb -i {mb_config} -d {runtime}"
+    subprocess.run(cmd,
+                   shell=True,
+                   stdout=subprocess.PIPE,
+                   stderr=subprocess.PIPE,
+                   timeout=int(runtime) * 5)
 
 def run_mb(mb_config, runtime, output):
     result_codes = {}
@@ -98,7 +105,10 @@ def main():
     parser.add_argument("--runtime", required=True, type=int)
     parser.add_argument("--output", required=True)
     parser.add_argument("--sample", required=True)
+    parser.add_argument("--ramp-up", required=False, type=int, default=0)
     args = parser.parse_args()
+    if args.ramp_up:
+        run_mb_ramp_up(args.mb_config, args.ramp_up)
     mb_config = json.load(open(args.mb_config, "r"))
     timestamp = datetime.datetime.utcnow()
     result_codes, p95_latency, p99_latency, avg_latency = run_mb(args.mb_config, args.runtime, args.output)
