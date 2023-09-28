@@ -1,0 +1,65 @@
+# vi: expandtab shiftwidth=2 softtabstop=2
+
+# First scenario is configured as warmup and it will also tune the default ingress-controller to assign the router pods to the infra nodes
+- termination: http
+  connections: 500
+  samples: 1
+  duration: 2m
+  path: /256.html
+  concurrency: 1
+  tool: wrk2
+  serverReplicas: 45
+  tuningPatch: '{"spec":{"tuningOptions": {"threadCount": 4}, "nodePlacement": {"nodeSelector": {"matchLabels": {"node-role.kubernetes.io/infra": ""}}}, "replicas": 2}}'
+  delay: 10s
+  requestTimeout: 10s
+  requestRate: 50000
+  warmup: true
+
+- termination: http
+  connections: 500
+  samples: 2
+  duration: 2m
+  path: /256.html
+  concurrency: 1
+  tool: wrk2
+  serverReplicas: 45
+  requestTimeout: 10s
+  requestRate: 50000
+  delay: 10s
+
+- termination: edge
+  connections: 500
+  samples: 2
+  duration: 2m
+  path: /256.html
+  concurrency: 1
+  tool: wrk2
+  serverReplicas: 45
+  requestTimeout: 10s
+  requestRate: 50000
+  delay: 10s
+
+- termination: reencrypt
+  connections: 500
+  samples: 2
+  duration: 2m
+  path: /256.html
+  concurrency: 1
+  tool: wrk2
+  serverReplicas: 45
+  requestTimeout: 10s
+  requestRate: 50000
+  delay: 10s
+
+- termination: passthrough
+  connections: 500
+  samples: 2
+  duration: 2m
+  path: /256.html
+  concurrency: 1
+  tool: wrk2
+  serverReplicas: 45
+  requestTimeout: 10s
+  requestRate: 50000
+  delay: 10s
+
