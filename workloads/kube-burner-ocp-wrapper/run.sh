@@ -19,7 +19,7 @@ UUID=${UUID:-$(uuidgen)}
 KUBE_DIR=${KUBE_DIR:-/tmp}
 
 download_binary(){
-  KUBE_BURNER_URL="https://github.com/kube-burner/kube-burner-ocp/releases/download/v${KUBE_BURNER_VERSION}/kube-burner-ocp-V${KUBE_BURNER_VERSION}-linux-x86_64.tar.gz"
+  KUBE_BURNER_URL="https://github.com/rsevilla87/kube-burner-ocp/releases/download/v1.0.0-snapshot/kube-burner-ocp-V1.0.0-Snapshot-linux-x86_64.tar.gz"
   curl --fail --retry 8 --retry-all-errors -sS -L "${KUBE_BURNER_URL}" | tar -xzC "${KUBE_DIR}/" kube-burner-ocp
 }
 
